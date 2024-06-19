@@ -50,7 +50,15 @@ function MyFavoriteIdols() {
 				{!isEmpty(items) &&
 					items.map(({ id, profilePicture, group, name }) => (
 						<div className="mypage-myidol__items" key={`idol-id-$(id)`}>
-							<Avatar src={profilePicture} size={"otherMyIdol"} alt={`${name} 프로필 이미지`} checked />
+							<Avatar
+								src={profilePicture}
+								size={"otherMyIdol"}
+								alt={`${name} 프로필 이미지`}
+								checked
+								onCanceled={() => {
+									console.log("canceled", id);
+								}}
+							/>
 							<p className="mypage__items-name">{name}</p>
 							<p className="mypage__items-group">{group}</p>
 						</div>

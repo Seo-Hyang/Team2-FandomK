@@ -27,6 +27,8 @@ const PROFILE_SIZES = {
 function AddFavoriteIdols() {
 	const mode = useMediaQuery();
 
+	const [selectedIdolIds, setselectedIdolIds] = useState([]);
+
 	const pageSize = useMemo(() => {
 		if (mode === "mobile") return PAGE_SIZES["mobile"];
 		if (mode === "tablet") return PAGE_SIZES["tablet"];
@@ -55,17 +57,34 @@ function AddFavoriteIdols() {
 			<section className="mypage-addidol__container">
 				<div className="mypage-addidol__container-inner">
 					{!isEmpty(items) &&
-						items.map(({ id, profilePicture, group, name }) => (
-							<div className="mypage-addidol__items" key={`idol-id-$(id)`}>
-								<Avatar src={profilePicture} size={"otherAddIdol"} alt={`${name} 프로필 이미지`} />
-								<p className="mypage__items-name">{name}</p>
-								<p className="mypage__items-group">{group}</p>
-							</div>
-						))}
+						items.map(({ id, profilePicture, group, name }) => {
+							const checked = selectedIdolIds.includes(id);
+							return (
+								<div className="mypage-addidol__items" key={`idol-id-$(id)`}>
+									<Avatar
+										src={profilePicture}
+										size={"otherAddIdol"}
+										alt={`${name} 프로필 이미지`}
+										checked={checked}
+										onClick={() => {
+											setselectedIdolIds((prev) => {
+												const hasId = prev.includes(id);
+												if (hasId) {
+													return prev.filter((item) => item !== id);
+												}
+												return [...new Set([...prev, id])];
+											});
+										}}
+									/>
+									<p className="mypage__items-name">{name}</p>
+									<p className="mypage__items-group">{group}</p>
+								</div>
+							);
+						})}
 				</div>
 			</section>
 			<section className="mypage-addidol_add">
-				<Button className="mypage-addidol_add-button" icon={"plus"} size={"large"} round>
+				<Button className="mypage-addidol_add-button" icon={"plus"} size={"large"} round disabled={selectedIdolIds.length === 0}>
 					추가하기
 				</Button>
 			</section>

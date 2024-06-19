@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import ChekIcon from "../../assets/images/icon/icon-check.svg";
+import CheckIcon from "../../assets/images/icon/icon-check.svg";
+import XIcon from "../../assets/images/icon/icon-X.svg";
 
 /*
 목록 페이지
@@ -42,7 +43,6 @@ const Article = styled.article`
 	border-radius: 9999px;
 	width: ${({ $size }) => IMAGE_SZIE[$size] ?? IMAGE_SZIE["basic"]};
 	height: ${({ $size }) => IMAGE_SZIE[$size] ?? IMAGE_SZIE["basic"]};
-	overflow: hidden;
 	border: 2px solid var(--color-brand-orange);
 `;
 
@@ -72,7 +72,7 @@ const Photo = styled.div`
     }
 
     &:after {
-      content: url(${ChekIcon});
+      content: url(${CheckIcon});
       position: absolute;
       top: 50%;
 	    left: 50%;
@@ -92,11 +92,25 @@ const Photo = styled.div`
  * <Avatar src={profilePicture} size={"basic"} alt={${아이돌 이름} 프로필 이미지} onClick={() => 아이돌 선택 함수} checked/>
  */
 
-function Avatar({ children, onClick, src, size, alt, checked, ...args }) {
+function Avatar({ children, onClick, src, size, alt, checked, onCanceled, ...args }) {
 	return (
 		<Article $size={size} onClick={onClick} {...args}>
 			<Photo style={{ backgroundImage: "url(" + src + ")" }} alt={alt} $checked={checked}></Photo>
-			<span>{children}</span>
+			{onCanceled && (
+				<button
+					onClick={onCanceled}
+					style={{
+						position: "absolute",
+						right: "0px",
+						top: "0px",
+						zIndex: "4",
+						width: "28px",
+						height: "28px",
+						borderRadius: "9999px",
+						border: "4px solid #02000E",
+					}}
+				></button>
+			)}
 		</Article>
 	);
 }
