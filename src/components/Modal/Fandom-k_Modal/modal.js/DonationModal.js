@@ -9,7 +9,6 @@ import done from "../module.css/Donation.module.css";
 import confetti from "canvas-confetti";
 import SlotCounter from "react-slot-counter";
 
-
 function DonationModal({ onClose, icon, setIdols, currentIdol, creditValueState, setDonationButtonDisabled, disabled, buttonName }) {
   const [myCredit, setMyCredit] = useMyCredit();
   const [creditValue, setCreditValue] = creditValueState;

@@ -154,8 +154,6 @@ function AddFavoriteIdols({ mode, myFavoriteIdolsState }) {
 
     const sortedList = sortDataList(list, { sortGroup, sortName });
 
-    console.log({ list });
-    console.log({ sortedList });
     setIdols((prev) => {
       if (cursor) {
         return [...prev, ...sortedList];

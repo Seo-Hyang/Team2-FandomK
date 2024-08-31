@@ -17,7 +17,6 @@ const ERROR_MESSAGES = {
  * const result = await updateSelectedVote(teamId);
  */
 export const voteIdol = async ({ idolId }) => {
-  console.log(`${API_URL}/votes`, { idolId });
   if (!idolId) throw new Error(ERROR_MESSAGES.id);
   return await httpClient.post(`${API_URL}/votes`, { idolId }).catch((e) => {
     throw new Error(ERROR_MESSAGES.response, e);
